@@ -13,7 +13,7 @@ public class Library
     private String title;
     private String author;
     private String ibsn;
-    private int year;
+    private String year;
 
 
 }
