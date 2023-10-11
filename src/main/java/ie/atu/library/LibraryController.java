@@ -1,14 +1,15 @@
 package ie.atu.library;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 public class LibraryController
 {
     private final LibraryService myLibraryService;
+    Map<String,String> responseMessage = new HashMap<>();
     @Autowired
     public LibraryController(LibraryService myLibraryService)
     {
@@ -16,11 +17,19 @@ public class LibraryController
     }
 
     @PostMapping("/librarydets")
-    public String Registering(@RequestBody Library library)
+    public Map <String, String> Registering(@RequestBody Library library)
     {
-        return myLibraryService.addbook(library);
+        String confirm = myLibraryService.addbook(library);
+
+        responseMessage.put("message",confirm );
+        return responseMessage;
     }
 
+    @GetMapping("")
+    public String getbook()
+    {
+        return responseMessage.toString();
+    }
 
 
 
